@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFA500; /* Orange background */
+        }
+
+        .inp input, .inp select {
+            background-color: white;
+            color: #228B22; /* Green */
+            border: 1px solid #228B22; /* Green border */
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #FFA500 !important; /* Orange */
+            color: white;
+        }
+
+        .btn-custom-orange {
+            background-color: #FFA500;
+            border-color: #FFA500;
+            color: white;
+        }
+
+        .btn-custom-orange:hover {
+            background-color: #228B22; /* Green */
+            color: white;
+            border-color: #228B22;
+        }
+
+        .alert-custom-green {
+            background-color: #228B22; /* Green */
+            color: white;
+        }
+
+        .text-custom-green {
+            color: #228B22; /* Green */
+        }
+
+        .text-custom-green a {
+            color: #228B22 !important; /* Green Sign In link */
+            font-weight: bold;
+        }
+
+        .text-custom-green a:hover {
+            text-decoration: underline;
+        }
+        /* Navbar Links Hover */
+        .navbar-nav .nav-link:hover {
+            color: #228B22 !important; /* Green */
+        }
+
+        /* Dropdown Items Hover */
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #228B22 !important; /* Green */
+            color: white !important;
+        }
+
+        /* Sign Up Button Hover */
+        .btn-custom-orange:hover {
+            background-color: #228B22 !important; /* Green */
+            color: white !important;
+            border-color: #228B22 !important;
+        }
+
+        /* Form Input Fields Hover */
+        .inp input:hover, .inp select:hover {
+            border-color: #228B22 !important; /* Green Border */
+        }
+
+        /* Sign In Link Hover */
+        .text-custom-green a:hover {
+            color: #228B22 !important; /* Green */
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #FFA500;"> <!-- Orange Navbar -->
+        <div class="container-fluid">
+            <a class="navbar-brand text-white fw-bold" href="#">AksHospitals</a> <!-- White Brand Name -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" 
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold text-success" href="#">Sign Up</a> <!-- Green Sign Up -->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold text-white" href="{% url 'signin' %}">Sign In</a> <!-- White Sign In -->
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" 
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            More
+                        </a>
+                        <ul class="dropdown-menu" style="background-color: #FFA500;"> <!-- Orange Dropdown -->
+                            <li><a class="dropdown-item text-white" href="#">Contact Us</a></li>
+                            <li><a class="dropdown-item text-white" href="#">Media</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg">
+                    <div class="card-header text-center">
+                        <h3>Facility Input Form</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <!-- Form Fields -->
+                            <div class="mb-3 inp">
+                                {{ form.as_p }}
+                            </div>
+
+                            <center><button type="submit" class="btn btn-custom-orange w-50">Sign Up</button></center>
+                        </form>
+
+                        {% if form.errors %}
+                            <div class="mt-3">
+                                <div class="alert alert-custom-green">
+                                    <ul class="mb-0">
+                                        {% for field in form %}
+                                            {% for error in field.errors %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Already have an account? -->
+                        <div class="text-center mt-3 text-custom-green">
+                            <p>Already have a profile? 
+                                <a href="{% url 'signin' %}">Sign In</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

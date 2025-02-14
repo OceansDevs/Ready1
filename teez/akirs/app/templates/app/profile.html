@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facility Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            height: 100vh;
+            background-color: #ff7f00; /* Orange */
+            color: white;
+            padding: 20px;
+            position: fixed;
+            width: 250px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .sidebar a:hover {
+            background-color: #e06c00; /* Darker Orange */
+        }
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        .card-header {
+            background-color: #28a745; /* Green */
+            color: white;
+        }
+        .btn-primary {
+            background-color: #ff7f00;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #e06c00;
+        }
+        .btn-warning {
+            background-color: #28a745;
+            border: none;
+            color: white;
+        }
+        .btn-warning:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h4 class="mb-4 text-center">Dashboard</h4>
+    <a href="{%url 'home' %}">🏠 Home</a>
+    <a href="#">💰 Payments</a>
+    <a href="#">📊 Reports</a>
+    <a href="#">⚙️ Settings</a>
+    <a href="#">🚪 Logout</a>
+</div>
+
+<!-- Main Content -->
+<div class="content">
+    <div class="container">
+        <h2 class="mb-4 text-success">Facility Profile</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card shadow-lg">
+                    <div class="card-header">
+                        <h4>Facility Details</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if facility %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Facility Name:</strong> {{ facility.facility_name }}</p>
+                                    <p><strong>Facility Type:</strong> {{ facility.facility_type }}</p>
+                                    <p><strong>Facility Ownership:</strong> {{ facility.facility_ownership }}</p>
+                                    <p><strong>Director Title:</strong> {{ facility.director_title }}</p>
+                                    <p><strong>Director Name:</strong> {{ facility.director_name }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Address:</strong> {{ facility.address }}</p>
+                                    <p><strong>State:</strong> {{ facility.get_state_display }}</p>
+                                    <p><strong>LGA:</strong> {{ facility.get_lga_display }}</p>
+                                    <p><strong>Phone Number:</strong> {{ facility.phone_number }}</p>
+                                    <p><strong>Email:</strong> {{ facility.email }}</p>
+                                    <p><strong>NIN:</strong> {{ facility.nin }}</p>
+                                    <p><strong>Serial Code:</strong> {{ facility.serial_code }}</p>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <a href="{% url 'edit_profile' %}" class="btn btn-warning">Edit Profile</a>
+                            </div>
+                        {% else %}
+                            <p class="text-danger">No facility profile found. Please complete your registration.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
